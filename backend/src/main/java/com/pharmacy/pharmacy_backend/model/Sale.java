@@ -1,6 +1,7 @@
 package com.pharmacy.pharmacy_backend.model;
 
 import javax.persistence.*;
+import javax.persistence.Column;
 
 @Entity
 @Table(name = "sales")
@@ -11,7 +12,8 @@ public class Sale {
     private Long id;
 
     private String customerName;
-    private double totalAmount;
+    @Column(columnDefinition = "double precision")
+    private Double totalAmount;
     private String saleDate;
 
     public Sale() {
@@ -33,11 +35,11 @@ public class Sale {
         this.customerName = customerName;
     }
 
-    public double getTotalAmount() {
+    public Double getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(double totalAmount) {
+    public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
     }
 
