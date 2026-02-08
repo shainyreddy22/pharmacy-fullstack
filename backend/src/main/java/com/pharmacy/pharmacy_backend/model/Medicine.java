@@ -1,7 +1,7 @@
 package com.pharmacy.pharmacy_backend.model;
 
 import javax.persistence.*;
-
+import javax.persistence.Column;
 @Entity
 @Table(name = "medicines")
 public class Medicine {
@@ -13,7 +13,8 @@ public class Medicine {
     private String name;
     private String company;
     private String category;
-    private double price;
+    @Column(columnDefinition = "double precision")
+    private Double price;
     private int quantity;
     private String expiryDate;
 
@@ -52,11 +53,11 @@ public class Medicine {
         this.category = category;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
