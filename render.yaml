@@ -1,17 +1,5 @@
 services:
   - type: web
     name: pharmacy-backend
-    env: java
-    buildCommand: "./mvnw clean package -DskipTests"
-    startCommand: "java -jar target/*.jar"
-    envVars:
-      - key: DATABASE_URL
-        value: jdbc:postgresql://localhost:5432/pharmacy_db
-      - key: DB_USERNAME
-        value: pharmacy_user
-      - key: DB_PASSWORD
-        value: pharmacy_password
-      - key: JWT_SECRET
-        value: your-secure-jwt-secret-key-here
-      - key: PORT
-        value: 8080
+    env: docker
+    rootDir: backend
