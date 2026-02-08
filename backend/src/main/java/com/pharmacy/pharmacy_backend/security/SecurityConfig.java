@@ -74,6 +74,7 @@ public class SecurityConfig {
                 .antMatchers("/api/dashboard/**").permitAll()
                 .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/api/health", "/api/root").permitAll()
                 .anyRequest().authenticated()
             );
 
