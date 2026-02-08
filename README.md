@@ -139,32 +139,120 @@ VITE_API_URL=https://your-backend-url.com/api
 
 ## 📁 Project Structure
 
-```
 pharmacy-fullstack/
-├── backend/                    # Spring Boot Application
-│   ├── src/
-│   │   ├── main/
-│   │   │   ├── java/
-│   │   │   │   └── com/pharmacy/pharmacy_backend/
-│   │   │   │       ├── controller/     # REST Controllers
-│   │   │   │       ├── model/          # JPA Entities
-│   │   │   │       ├── repository/     # Data Access Layer
-│   │   │   │       ├── service/        # Business Logic
-│   │   │   │       ├── security/       # Authentication
-│   │   │   │       └── config/         # Configuration
-│   │   │   └── resources/
-│   │   │       └── application.properties
-│   │   └── test/
+│
+├── backend/                         # Spring Boot Backend
+│   │
+│   ├── src/main/java/com/pharmacy/pharmacy_backend/
+│   │   │
+│   │   ├── PharmacyBackendApplication.java
+│   │   │
+│   │   ├── controller/
+│   │   │   ├── MedicineController.java
+│   │   │   ├── SupplierController.java
+│   │   │   ├── CustomerController.java
+│   │   │   ├── SaleController.java
+│   │   │   ├── DashboardController.java
+│   │   │   └── ReportController.java
+│   │   │
+│   │   ├── model/
+│   │   │   ├── Medicine.java
+│   │   │   ├── Supplier.java
+│   │   │   ├── Customer.java
+│   │   │   ├── Sale.java
+│   │   │   └── SaleItem.java
+│   │   │
+│   │   ├── repository/
+│   │   │   ├── MedicineRepository.java
+│   │   │   ├── SupplierRepository.java
+│   │   │   ├── CustomerRepository.java
+│   │   │   ├── SaleRepository.java
+│   │   │   └── SaleItemRepository.java
+│   │   │
+│   │   ├── service/
+│   │   │   ├── MedicineService.java
+│   │   │   ├── SupplierService.java
+│   │   │   ├── CustomerService.java
+│   │   │   ├── SaleService.java
+│   │   │   └── DashboardService.java
+│   │   │
+│   │   ├── config/
+│   │   │   ├── CorsConfig.java
+│   │   │   └── SwaggerConfig.java
+│   │   │
+│   │   └── security/
+│   │       ├── JwtAuthenticationFilter.java
+│   │       ├── JwtUtil.java
+│   │       ├── SecurityConfig.java
+│   │       ├── UserDetailsServiceImpl.java
+│   │       └── AuthController.java
+│   │
+│   ├── src/main/resources/
+│   │   ├── application.properties
+│   │   └── data.sql
+│   │
+│   ├── src/test/java/com/pharmacy/pharmacy_backend/
+│   │   ├── MedicineControllerTest.java
+│   │   ├── SupplierControllerTest.java
+│   │   └── SaleServiceTest.java
+│   │
 │   └── pom.xml
-└── frontend/                   # React Application
+│
+└── frontend/                       # React Frontend
+    │
     ├── src/
-    │   ├── components/         # React Components
-    │   ├── pages/              # Page Components
-    │   ├── services/           # API Services
-    │   ├── context/            # React Context
-    │   └── assets/             # Static Assets
+    │   │
+    │   ├── components/
+    │   │   ├── Navbar.jsx
+    │   │   ├── Sidebar.jsx
+    │   │   ├── Layout.jsx
+    │   │   ├── Table.jsx
+    │   │   ├── FormInput.jsx
+    │   │   └── Loader.jsx
+    │   │
+    │   ├── pages/
+    │   │   ├── Login.jsx
+    │   │   ├── Dashboard.jsx
+    │   │   ├── Medicines.jsx
+    │   │   ├── AddMedicine.jsx
+    │   │   ├── Suppliers.jsx
+    │   │   ├── Customers.jsx
+    │   │   ├── CreateSale.jsx
+    │   │   ├── SalesHistory.jsx
+    │   │   ├── LowStock.jsx
+    │   │   └── ExpiryReport.jsx
+    │   │
+    │   ├── services/
+    │   │   ├── api.js
+    │   │   ├── medicineService.js
+    │   │   ├── supplierService.js
+    │   │   ├── customerService.js
+    │   │   ├── saleService.js
+    │   │   └── dashboardService.js
+    │   │
+    │   ├── context/
+    │   │   ├── AuthContext.jsx
+    │   │   └── AppContext.jsx
+    │   │
+    │   ├── assets/
+    │   │   ├── logo.png
+    │   │   ├── bg.jpg
+    │   │   └── icons/
+    │   │       ├── medicine.png
+    │   │       ├── sales.png
+    │   │       └── user.png
+    │   │
+    │   ├── App.jsx
+    │   ├── main.jsx
+    │   ├── index.css
+    │   └── App.css
+    │
     ├── public/
-    └── package.json
+    │   └── index.html
+    │
+    ├── package.json
+    └── vite.config.js
+
 ```
 
 ## 🔧 API Endpoints
