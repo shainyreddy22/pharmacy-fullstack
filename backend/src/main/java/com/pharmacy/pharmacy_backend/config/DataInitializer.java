@@ -1,0 +1,34 @@
+package com.pharmacy.pharmacy_backend.config;
+
+import com.pharmacy.pharmacy_backend.model.User;
+import com.pharmacy.pharmacy_backend.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+@Component
+public class DataInitializer implements CommandLineRunner {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Override
+    public void run(String... args) throws Exception {
+        // Create default admin user if not exists
+        if (!userRepository.existsByUsername("admin")) {
+            User admin = new User();
+            admin.setUsername("admin");
+            admin.setEmail("admin@pharmacy.com");
+            admin.setPassword(passwordEncoder.encode("admin123"));
+            admin.setRole("ADMIN");
+            admin.setEnabled(true);
+            
+            userRepository.save(admin);
+            System.out.println("Default admin user created: admin/admin123");
+        }
+    }
+}
