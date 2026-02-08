@@ -2,4 +2,17 @@ services:
   - type: web
     name: pharmacy-backend
     env: docker
+    plan: free
     rootDir: backend
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: DATABASE_URL
+        value: jdbc:h2:mem:testdb
+      - key: DB_USERNAME
+        value: sa
+      - key: DB_PASSWORD
+        value: 
+      - key: JWT_SECRET
+        value: your-super-secret-jwt-key-change-in-production
+      - key: PORT
+        value: 8080

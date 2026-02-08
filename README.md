@@ -111,10 +111,44 @@ spring.datasource.password=your_password
 
 ## 🌐 Deployment
 
-### Backend Deployment Options
-- **Railway** - [railway.app](https://railway.app)
-- **Render** - [render.com](https://render.com)
-- **Heroku** - [heroku.com](https://heroku.com)
+### Backend Deployment (Render)
+
+The backend is configured for easy deployment on Render:
+
+1. **Prerequisites**
+   - Push all changes to GitHub
+   - Create a Render account
+
+2. **Deploy Steps**
+   ```bash
+   # Commit changes
+   git add .
+   git commit -m "Configure for Render deployment"
+   git push origin main
+   ```
+
+3. **Render Configuration**
+   - Go to [Render Dashboard](https://render.com)
+   - Create new Web Service
+   - Connect your GitHub repository
+   - Set **Root Directory** to `backend`
+   - Environment: `Docker`
+   - Auto-deploy: Enabled
+
+4. **Environment Variables**
+   Render will automatically use values from `render.yaml`:
+   ```
+   DATABASE_URL=jdbc:h2:mem:testdb
+   DB_USERNAME=sa
+   DB_PASSWORD=
+   JWT_SECRET=your-super-secret-jwt-key
+   PORT=8080
+   ```
+
+5. **Test Deployment**
+   ```bash
+   ./test-deployment.sh https://your-render-url.onrender.com
+   ```
 
 ### Frontend Deployment Options
 - **Netlify** - [netlify.com](https://netlify.com)
@@ -126,16 +160,26 @@ Set these environment variables in your deployment platform:
 
 **Backend:**
 ```bash
-DATABASE_URL=jdbc:mysql://your-database-url
+# For production database (PostgreSQL example)
+DATABASE_URL=jdbc:postgresql://your-database-url
 DB_USERNAME=your_db_username
 DB_PASSWORD=your_db_password
+HIBERNATE_DIALECT=org.hibernate.dialect.PostgreSQLDialect
+
+# JWT Configuration
 JWT_SECRET=your_jwt_secret_key
+
+# Server Port (Render sets this automatically)
+PORT=8080
 ```
 
 **Frontend:**
 ```bash
-VITE_API_URL=https://your-backend-url.com/api
+VITE_API_URL=https://your-backend-url.onrender.com/api
 ```
+
+### Detailed Deployment Guide
+See [BACKEND_DEPLOYMENT.md](BACKEND_DEPLOYMENT.md) for comprehensive deployment instructions and [DEPLOYMENT_CHANGES.md](DEPLOYMENT_CHANGES.md) for a summary of all changes made.
 
 ## 📁 Project Structure
 
@@ -174,7 +218,7 @@ pharmacy-fullstack/
 - `POST /api/auth/signup` - User registration
 
 ### Medicines
-- `GET /api/medicines` - Get all medicines
+- `GET /api/medicines` - Get all medicinesh
 - `POST /api/medicines` - Add new medicine
 - `PUT /api/medicines/{id}` - Update medicine
 - `DELETE /api/medicines/{id}` - Delete medicine
