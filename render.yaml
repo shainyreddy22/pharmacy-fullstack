@@ -7,12 +7,16 @@ services:
     healthCheckPath: /actuator/health
     envVars:
       - key: DATABASE_URL
-        value: jdbc:h2:mem:testdb
+        value: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
       - key: DB_USERNAME
         value: sa
       - key: DB_PASSWORD
         value: 
+      - key: DB_DRIVER
+        value: org.h2.Driver
       - key: JWT_SECRET
         value: your-super-secret-jwt-key-change-in-production
       - key: PORT
         value: 8080
+      - key: HIBERNATE_DIALECT
+        value: org.hibernate.dialect.H2Dialect
