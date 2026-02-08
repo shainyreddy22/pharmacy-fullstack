@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -108,9 +109,9 @@ function Login() {
             </small>
             <p className="mb-0 text-muted">
               Don't have an account?{' '}
-              <a href="/signup" className="text-decoration-none fw-bold text-primary">
+              <Link to="/signup" className="text-decoration-none fw-bold text-primary">
                 Create one
-              </a>
+              </Link>
             </p>
           </div>
         </div>
