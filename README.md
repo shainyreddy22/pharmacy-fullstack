@@ -61,8 +61,8 @@ A full-stack pharmacy management web application built with Spring Boot and Reac
 ### Prerequisites
 - Java 17 or higher
 - Node.js 16 or higher
-- MySQL 8.0 (or use H2 for development)
 - Maven 3.6+
+- npm or yarn
 
 ### Installation
 
@@ -75,9 +75,35 @@ cd pharmacy-management-system
 2. **Backend Setup**
 ```bash
 cd backend
-# Update application.properties with your database credentials
-mvn clean install
+# Install dependencies and run the application
+mvn clean install -DskipTests
 mvn spring-boot:run
+```
+
+By default, the backend will run on `http://localhost:8080` with H2 in-memory database.
+
+For local development, the application is configured to use H2 in-memory database automatically. If you want to customize the database configuration, update `application.properties`:
+
+```properties
+# Database Configuration
+# For local development with H2 in-memory database
+spring.datasource.url=jdbc:h2:mem:testdb
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.driver-class-name=org.h2.Driver
+
+# For production with PostgreSQL (uncomment when deploying)
+# spring.datasource.url=${SPRING_DATASOURCE_URL}
+# spring.datasource.username=${SPRING_DATASOURCE_USERNAME}
+# spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+# spring.datasource.driver-class-name=org.postgresql.Driver
+
+# JPA Configuration
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update
+
+# JWT Configuration
+app.jwtSecret=${JWT_SECRET:your-super-secret-jwt-key-change-in-production}
 ```
 
 3. **Frontend Setup**
@@ -87,12 +113,72 @@ npm install
 npm run dev
 ```
 
+By default, the frontend will run on `http://localhost:5173` and connect to the backend API at `http://localhost:8080/api`.
+
+4. **Access the Application**
+
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:8080/api`
+- Backend Health Check: `http://localhost:8080/actuator/health`
+
+### Running Both Applications Concurrently
+
+For a better development experience, you can run both applications simultaneously:
+
+**Option 1: Different Terminals**
+- Terminal 1 (Backend): `cd backend && mvn spring-boot:run`
+- Terminal 2 (Frontend): `cd frontend && npm run dev`
+
+**Option 2: Using Concurrently (if installed)**
+```bash
+cd pharmacy-management-system
+# Install concurrently if not already installed
+npm install -g concurrently
+
+# Run both applications
+concurrently --names "BACKEND,FRONTEND" \
+  -c "bgBlue.bold,bgYellow.bold" \
+  "cd backend && mvn spring-boot:run" \
+  "cd frontend && npm run dev"
+```
+
+### Default Credentials
+
+After the first run, the application automatically creates a default admin user:
+
+- Username: `admin`
+- Password: `admin123`
+
+### Environment Variables (Optional)
+
+If you want to customize the application behavior, you can set these environment variables:
+
+**Backend:**
+```bash
+# Database Configuration
+SPRING_DATASOURCE_URL=jdbc:h2:mem:testdb
+SPRING_DATASOURCE_USERNAME=sa
+SPRING_DATASOURCE_PASSWORD=
+
+# JWT Configuration
+JWT_SECRET=your-super-secret-jwt-key-change-in-production
+```
+
+**Frontend:**
+```bash
+# Create a .env file in the frontend directory
+VITE_API_URL=http://localhost:8080/api
+```
+
 ### Database Configuration
 
 #### Development (H2 Database)
-The application uses H2 in-memory database by default for development.
+The application uses H2 in-memory database by default for development. No additional setup is required for local development.
 
-#### Production (MySQL)
+#### Alternative Databases
+If you prefer to use other databases:
+
+**MySQL**
 1. Create a MySQL database:
 ```sql
 CREATE DATABASE pharmacy_db;
@@ -103,6 +189,23 @@ CREATE DATABASE pharmacy_db;
 spring.datasource.url=jdbc:mysql://localhost:3306/pharmacy_db
 spring.datasource.username=your_username
 spring.datasource.password=your_password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+```
+
+**PostgreSQL**
+1. Create a PostgreSQL database:
+```sql
+CREATE DATABASE pharmacy_db;
+```
+
+2. Update `backend/src/main/resources/application.properties`:
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/pharmacy_db
+spring.datasource.username=your_username
+spring.datasource.password=your_password
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
 ```
 
 ### Default Credentials
