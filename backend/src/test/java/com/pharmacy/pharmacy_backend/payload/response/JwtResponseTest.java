@@ -11,10 +11,10 @@ class JwtResponseTest {
             "token", 1L, "user", "user@example.com", "ROLE_USER"
         );
         
-        assertEquals("token", response.getToken());
+        assertEquals("token", response.getAccessToken());
         assertEquals(1L, response.getId());
         assertEquals("user", response.getUsername());
         assertEquals("user@example.com", response.getEmail());
-        assertEquals("Bearer", response.getType());
+        assertEquals("Bearer", response.getTokenType());
     }
 }
