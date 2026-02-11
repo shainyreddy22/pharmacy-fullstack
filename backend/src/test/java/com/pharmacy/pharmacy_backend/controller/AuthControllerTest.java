@@ -19,7 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.test.context.support.WithMockUser;
+
 
 import java.util.Collections;
 import java.util.Optional;
@@ -85,9 +85,9 @@ class AuthControllerTest {
         assertTrue(response.getStatusCode().is2xxSuccessful());
         JwtResponse jwtResponse = (JwtResponse) response.getBody();
         assertNotNull(jwtResponse);
-        assertEquals(jwtToken, jwtResponse.getToken());
+        assertEquals(jwtToken, jwtResponse.getAccessToken());
         assertEquals("testuser", jwtResponse.getUsername());
-        assertEquals("Bearer", jwtResponse.getType());
+        assertEquals("Bearer", jwtResponse.getTokenType());
         verify(authenticationManager).authenticate(any(UsernamePasswordAuthenticationToken.class));
         verify(jwtTokenProvider).generateToken(authentication);
     }
