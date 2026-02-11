@@ -126,7 +126,7 @@ function CreateSale() {
         items: cart.map(item => ({
           medicineId: item.medicineId,
           quantity: item.quantity,
-          unitPrice: item.price
+          price: item.price
         }))
       };
 
